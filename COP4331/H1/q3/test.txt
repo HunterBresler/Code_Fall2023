@@ -1,0 +1,4 @@
+6 4 2 4 
+The min of the numbers is: 2
+The max of the numbers is: 6
+The average of the numbers is: 4
