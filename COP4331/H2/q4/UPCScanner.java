@@ -13,9 +13,13 @@ public class UPCScanner
         register = new CashRegister();
     }
 
-    public void scan()
+    // Scans UPC from terminal
+    // Returns 1 or 0
+    // 0 continues purchase
+    // 1 ends purchase
+    public int scan()
     {    
-        register.purchase(scan.nextLine());
+        return register.purchase(scan.nextLine());
     }
 
     private Scanner scan;

@@ -1,5 +1,6 @@
 package H2.q4;
 
+// Class that keeps track of a product's info
 public class Product 
 {
     // Constructor

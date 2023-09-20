@@ -3,7 +3,6 @@ package H2.q4;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class CashRegister 
@@ -12,6 +11,7 @@ public class CashRegister
     public CashRegister()
     {
         // Add inventory
+        // Use inventory UPC's for testing
         // No clue how to do this as a constant since they're class objects
         Product product1 = new Product("Pizza Slice", 101, 2.99);
         Product product2 = new Product("Soda", 102, .99);
@@ -25,11 +25,16 @@ public class CashRegister
         currentPurchase = new ArrayList<Product>();
     }
 
-    public void purchase(String scan)
+    // Returns 1 when purchase is completed
+    // adds scanned product to cart and displays it
+    public int purchase(String scan)
     {
-        if (scan == "Pay")
+        // Check for end of purchase
+        // Return 1 if true
+        if (scan.equals("Pay"))
         {
             displayReceipt();
+            return 1;
         }
         else
         {
@@ -42,11 +47,14 @@ public class CashRegister
             addToCart(product);
             displayProduct(product);
         }
+
+        return 0;
     }
 
     // gets UPC, returns Product 
     public Product getProduct(int UPC)
     {
+        // Gets product from inventory using UPC
         List<Product> scannedProduct = inventory.stream()
                                                 .filter(product -> product.getUPC() == UPC)
                                                 .collect(Collectors.toList());
@@ -59,14 +67,26 @@ public class CashRegister
         currentPurchase.add(product);
     }
 
+    // Takes a product and prints out it's info
     public void displayProduct(Product product)
     {
-
+        int upc = product.getUPC();
+        String name = product.getName();
+        double price = product.getPrice();
+        System.out.println(upc + " " + name + " " + price);
     }
 
+    // Displays the receipt for the current purchase
     public void displayReceipt()
     {
-
+        double total = 0.0;
+        // Display all items purchased and calculate their total
+        for (Product p: currentPurchase)
+        {
+            displayProduct(p);
+            total += p.getPrice();
+        }
+        System.out.printf("Your total is %.2f", total);
     }
 
     private List<Product> inventory;
